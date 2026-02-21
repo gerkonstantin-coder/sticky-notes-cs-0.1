@@ -1,0 +1,21 @@
+# Build output
+output/
+Output/
+
+# Inno Setup
+*.log
+
+# Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User data
+notes.json
