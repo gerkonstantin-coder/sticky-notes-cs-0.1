@@ -11,12 +11,24 @@ echo.
 cd /d "%~dp0"
 
 :: ============================================
-:: 1. Компиляция EXE
+:: 1. Проверка наличия EXE файла
 :: ============================================
-echo [1/2] Компиляция EXE файла...
+echo [1/2] Проверка EXE файла...
 
-call compile.bat
-if errorlevel 1 exit /b 1
+if not exist "output\StickyNotes.exe" (
+    echo       EXE файл не найден. Компиляция...
+    echo.
+    call compile.bat
+    
+    if not exist "output\StickyNotes.exe" (
+        echo.
+        echo [ОШИБКА] Не удалось создать EXE файл!
+        pause
+        exit /b 1
+    )
+) else (
+    echo       ✓ EXE файл найден: output\StickyNotes.exe
+)
 
 :: ============================================
 :: 2. Создание инсталлера
@@ -32,35 +44,41 @@ if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" (
     set "ISCC=C:\Program Files\Inno Setup 6\ISCC.exe"
 ) else if exist "C:\Program Files (x86)\Inno Setup 5\ISCC.exe" (
     set "ISCC=C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
-)
-
-if defined ISCC (
-    "%ISCC%" installer.iss
-    
-    if exist "Output\StickyNotesSetup.exe" (
-        echo.
-        echo ╔══════════════════════════════════════════════════════════════════════╗
-        echo ║                    ✅ ИНСТАЛЛЕР ГОТОВ!                               ║
-        echo ╠══════════════════════════════════════════════════════════════════════╣
-        echo ║  Файл: Output\StickyNotesSetup.exe                                   ║
-        echo ║                                                                      ║
-        echo ║  Установка Python НЕ требуется!                                      ║
-        echo ║  Работает на любом Windows с .NET Framework (встроен в Win10/11)     ║
-        echo ╚══════════════════════════════════════════════════════════════════════╝
-        echo.
-        explorer "Output"
-    )
 ) else (
     echo.
     echo ┌──────────────────────────────────────────────────────────────────┐
-    echo │  Inno Setup не найден!                                           │
+    echo │  [ОШИБКА] Inno Setup не найден!                                  │
     echo │                                                                  │
-    echo │  EXE файл готов: output\StickyNotes.exe                         │
+    echo │  Скачайте и установите Inno Setup 6:                            │
+    echo │  https://jrsoftware.org/isdl.php                                │
     echo │                                                                  │
-    echo │  Для создания инсталлера:                                       │
-    echo │  1. Скачайте Inno Setup: https://jrsoftware.org/isdl.php        │
-    echo │  2. Установите и запустите этот скрипт снова                    │
+    echo │  После установки запустите этот скрипт снова                    │
     echo └──────────────────────────────────────────────────────────────────┘
+    echo.
+    pause
+    exit /b 1
+)
+
+echo       Используется: %ISCC%
+echo.
+
+"%ISCC%" installer.iss
+
+if exist "Output\StickyNotesSetup.exe" (
+    echo.
+    echo ╔══════════════════════════════════════════════════════════════════════╗
+    echo ║                    ✅ ИНСТАЛЛЕР ГОТОВ!                               ║
+    echo ╠══════════════════════════════════════════════════════════════════════╣
+    echo ║  Файл: Output\StickyNotesSetup.exe                                   ║
+    echo ║                                                                      ║
+    echo ║  Установка Python НЕ требуется!                                      ║
+    echo ║  Работает на любом Windows с .NET Framework (встроен в Win10/11)     ║
+    echo ╚══════════════════════════════════════════════════════════════════════╝
+    echo.
+    explorer "Output"
+) else (
+    echo.
+    echo [ОШИБКА] Не удалось создать инсталлер
     echo.
 )
 

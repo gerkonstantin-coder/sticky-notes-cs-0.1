@@ -22,11 +22,6 @@ WizardStyle=modern
 PrivilegesRequired=admin
 MinVersion=6.1sp1
 
-; Иконка (если есть)
-#ifexist "icon.ico"
-SetupIconFile=icon.ico
-#endif
-
 ; Языки
 ShowLanguageDialog=yes
 
