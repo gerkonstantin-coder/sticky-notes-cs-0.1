@@ -11,24 +11,33 @@ echo.
 cd /d "%~dp0"
 
 :: ============================================
-:: 1. Проверка наличия EXE файла
+:: 1. Компиляция EXE
 :: ============================================
-echo [1/2] Проверка EXE файла...
+echo [1/2] Компиляция EXE файла...
 
-if not exist "output\StickyNotes.exe" (
-    echo       EXE файл не найден. Компиляция...
+:: Проверяем наличие исходного файла
+if not exist "StickyNotes.cs" (
+    echo [ОШИБКА] Файл StickyNotes.cs не найден!
+    echo Текущая папка: %CD%
     echo.
-    call compile.bat
-    
-    if not exist "output\StickyNotes.exe" (
-        echo.
-        echo [ОШИБКА] Не удалось создать EXE файл!
-        pause
-        exit /b 1
-    )
-) else (
-    echo       ✓ EXE файл найден: output\StickyNotes.exe
+    pause
+    exit /b 1
 )
+
+:: Компилируем
+call compile.bat
+
+:: Проверяем результат компиляции
+if not exist "output\StickyNotes.exe" (
+    echo.
+    echo [ОШИБКА] EXE файл не был создан!
+    echo Проверьте сообщения об ошибках выше.
+    echo.
+    pause
+    exit /b 1
+)
+
+echo       ✓ EXE файл готов
 
 :: ============================================
 :: 2. Создание инсталлера
@@ -44,25 +53,40 @@ if exist "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" (
     set "ISCC=C:\Program Files\Inno Setup 6\ISCC.exe"
 ) else if exist "C:\Program Files (x86)\Inno Setup 5\ISCC.exe" (
     set "ISCC=C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
-) else (
+)
+
+if not defined ISCC (
     echo.
-    echo ┌──────────────────────────────────────────────────────────────────┐
-    echo │  [ОШИБКА] Inno Setup не найден!                                  │
-    echo │                                                                  │
-    echo │  Скачайте и установите Inno Setup 6:                            │
-    echo │  https://jrsoftware.org/isdl.php                                │
-    echo │                                                                  │
-    echo │  После установки запустите этот скрипт снова                    │
-    echo └──────────────────────────────────────────────────────────────────┘
+    echo ══════════════════════════════════════════════════════════════════════
+    echo   [ОШИБКА] Inno Setup не найден!
     echo.
+    echo   EXE файл готов: output\StickyNotes.exe
+    echo   Вы можете использовать его напрямую.
+    echo.
+    echo   Для создания инсталлера:
+    echo   1. Скачайте: https://jrsoftware.org/isdl.php
+    echo   2. Установите Inno Setup
+    echo   3. Запустите этот скрипт снова
+    echo ══════════════════════════════════════════════════════════════════════
+    echo.
+    explorer "output"
     pause
-    exit /b 1
+    exit /b 0
 )
 
 echo       Используется: %ISCC%
 echo.
+echo Компиляция инсталлера...
 
 "%ISCC%" installer.iss
+
+if errorlevel 1 (
+    echo.
+    echo [ОШИБКА] Не удалось создать инсталлер
+    echo.
+    pause
+    exit /b 1
+)
 
 if exist "Output\StickyNotesSetup.exe" (
     echo.
@@ -78,7 +102,7 @@ if exist "Output\StickyNotesSetup.exe" (
     explorer "Output"
 ) else (
     echo.
-    echo [ОШИБКА] Не удалось создать инсталлер
+    echo [ОШИБКА] Инсталлер не был создан
     echo.
 )
 
