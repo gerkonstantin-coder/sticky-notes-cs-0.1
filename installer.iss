@@ -1,5 +1,5 @@
-; Sticky Notes - Inno Setup Script (C# версия)
-; Не требует Python - работает на любом Windows с .NET Framework
+; Sticky Notes - Inno Setup Script
+; Does not require Python - works on any Windows with .NET Framework
 
 #define AppName "Sticky Notes"
 #define AppVersion "1.0.0"
@@ -22,10 +22,10 @@ WizardStyle=modern
 PrivilegesRequired=admin
 MinVersion=6.1sp1
 
-; Языки
+; Languages
 ShowLanguageDialog=yes
 
-; Удаление
+; Uninstall
 UninstallDisplayIcon={app}\{#AppExeName}
 UninstallDisplayName={#AppName}
 

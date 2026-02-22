@@ -1,166 +1,77 @@
-# 📝 Sticky Notes (C# версия)
+# Sticky Notes (C# version)
 
-<div align="center">
+Classic sticky notes app for Windows - Native C# version, no Python required!
 
-**Классическая записная книжка-стикер для Windows**
+## Features
 
-Вдохновлён дизайном Windows Vista • Написан на C# • Не требует Python
+- No Python required - written in C#
+- Stylish design - bright colors, soft shadows
+- Always on top mode
+- Desktop pinning mode
+- Smart buttons - auto-hide after 3 seconds
+- 6 color themes
+- Auto-save notes
+- Drag and resize
 
-</div>
+## Installation
 
----
+### Option 1: Compile from source
 
-## ✨ Особенности
+Requirements:
+- Windows 7/8/10/11
+- .NET Framework 3.5+ (built into Windows 10/11)
 
-| Функция | Описание |
-|---------|----------|
-| 🚀 **Без Python** | Написан на C#, работает нативно в Windows |
-| 🎨 **Стильный дизайн** | Яркие цвета, мягкие тени |
-| 📝 **Текстовые заметки** | Удобный ввод и редактирование |
-| 🔝 **Поверх всех окон** | Стикер всегда виден |
-| 📌 **Закрепление на столе** | Становится частью обоев |
-| 🖱️ **Умные кнопки** | Исчезают через 3 сек, появляются при наведении |
-| 🎨 **6 цветов** | Желтый, зеленый, синий, розовый, оранжевый, фиолетовый |
-| 💾 **Автосохранение** | Все заметки сохраняются автоматически |
-
----
-
-## 🚀 Быстрый старт
-
-### Шаг 1: Скачайте проект
-
-```bash
-git clone https://github.com/gerkonstantin-coder/sticky-notes-cs-0.1.git
+Steps:
+```
+1. Download or clone this repository
+2. Run compile.bat
+3. Get output\StickyNotes.exe
 ```
 
-Или нажмите **Code → Download ZIP**
+### Option 2: Build installer
 
-### Шаг 2: Запустите сборку
+Requirements:
+- Inno Setup 6 (download from https://jrsoftware.org/isdl.php)
 
-```batch
-build_installer.bat
+Steps:
+```
+1. Run build_installer.bat
+2. Get Output\StickyNotesSetup.exe
 ```
 
-Этот скрипт:
-1. Найдёт компилятор C# (встроен в Windows)
-2. Скомпилирует `StickyNotes.exe`
-3. Создаст инсталлер `StickyNotesSetup.exe`
+## Controls
 
-### Шаг 3: Установите
+| Button | Function |
+|--------|----------|
+| + | New note |
+| pin | Pin to desktop |
+| up | Always on top |
+| palette | Change color |
+| X | Close |
 
-Запустите `Output\StickyNotesSetup.exe`
+### Actions
 
----
+- Drag header to move
+- Drag bottom-right corner to resize
+- Double-click header to minimize
+- Right-click for context menu
 
-## 📦 Альтернативы
+## Colors
 
-### Только EXE (без инсталлера)
+Yellow, Green, Blue, Pink, Orange, Purple
 
-```batch
-compile.bat
-```
-
-Результат: `output\StickyNotes.exe` — портативная версия
-
-### Ручная компиляция
-
-```batch
-# Найдите csc.exe в Windows:
-# %WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe
-
-"%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /target:winexe /out:StickyNotes.exe StickyNotes.cs
-```
-
----
-
-## 🎮 Использование
-
-### Кнопки управления
-
-| Кнопка | Функция |
-|--------|---------|
-| ➕ | Новая заметка |
-| 📌 | Закрепить на рабочем столе |
-| ⬆ | Поверх всех окон |
-| 🎨 | Выбор цвета |
-| ✕ | Закрыть |
-
-### Действия
-
-| Действие | Результат |
-|----------|-----------|
-| Наведение на заголовок | Появление кнопок |
-| Перетаскивание заголовка | Перемещение стикера |
-| Растягивание уголка ▭ | Изменение размера |
-| Двойной клик по заголовку | Свернуть/развернуть |
-| Правый клик | Контекстное меню |
-
----
-
-## 🎨 Цвета
-
-🟡 Желтый | 🟢 Зеленый | 🔵 Синий | 🩷 Розовый | 🟠 Оранжевый | 🟣 Фиолетовый
-
----
-
-## 📁 Где хранятся данные
+## Data Storage
 
 ```
 %APPDATA%\StickyNotes\notes.json
 ```
 
----
+## System Requirements
 
-## 📋 Системные требования
+- Windows 7 SP1 / 8 / 10 / 11
+- .NET Framework 3.5+ (built into Windows 10/11)
+- Python NOT required!
 
-| Требование | Версия |
-|------------|--------|
-| **ОС** | Windows 7 SP1 / 8 / 10 / 11 |
-| **.NET Framework** | 3.5+ (встроен в Windows 10/11) |
-| **Python** | ❌ НЕ требуется! |
+## License
 
----
-
-## 📄 Файлы проекта
-
-```
-sticky-notes-cs/
-├── StickyNotes.cs        # Исходный код (один файл!)
-├── compile.bat           # Компиляция EXE
-├── build_installer.bat   # Полная сборка с инсталлером
-├── installer.iss         # Скрипт Inno Setup
-└── README.md             # Эта документация
-```
-
----
-
-## ❓ Частые вопросы
-
-**Q: Зачем компилировать? Почему нет готового EXE?**
-
-A: Исходный код прозрачен — вы видите, что выполняете. Компиляция занимает 2 секунды и не требует установки дополнительных программ.
-
-**Q: Inno Setup не найден**
-
-A: Скачайте с https://jrsoftware.org/isdl.php или используйте только `compile.bat` для получения EXE.
-
-**Q: Компилятор не найден**
-
-A: Убедитесь, что установлен .NET Framework 3.5+:
-- Windows 10/11: Панель управления → Программы → Включение компонентов Windows → .NET Framework 3.5
-
----
-
-## 📜 Лицензия
-
-MIT License — свободное использование
-
----
-
-<div align="center">
-
-**⭐ Если проект понравился, поставьте звездочку! ⭐**
-
-Made with 💛 for Windows users
-
-</div>
+MIT License
