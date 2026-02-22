@@ -25,37 +25,51 @@
 
 ---
 
-## 📥 Установка
+## 🚀 Быстрый старт
 
-### Вариант 1: Скачать готовый файл
+### Шаг 1: Скачайте проект
 
-1. Скачайте `StickyNotes.exe`
-2. Запустите — установка не требуется!
-
-### Вариант 2: Собрать из исходников
-
-**Требования:**
-- Windows 7/8/10/11
-- .NET Framework 3.5+ (встроен в Windows 10/11)
-
-**Компиляция:**
-```batch
-compile.bat
+```bash
+git clone https://github.com/gerkonstantin-coder/sticky-notes-cs-0.1.git
 ```
 
-Готовый файл: `output\StickyNotes.exe`
+Или нажмите **Code → Download ZIP**
 
-### Вариант 3: Создать инсталлер
+### Шаг 2: Запустите сборку
 
-**Требования:**
-- Inno Setup 6 ([скачать](https://jrsoftware.org/isdl.php))
-
-**Сборка:**
 ```batch
 build_installer.bat
 ```
 
-Готовый инсталлер: `Output\StickyNotesSetup.exe`
+Этот скрипт:
+1. Найдёт компилятор C# (встроен в Windows)
+2. Скомпилирует `StickyNotes.exe`
+3. Создаст инсталлер `StickyNotesSetup.exe`
+
+### Шаг 3: Установите
+
+Запустите `Output\StickyNotesSetup.exe`
+
+---
+
+## 📦 Альтернативы
+
+### Только EXE (без инсталлера)
+
+```batch
+compile.bat
+```
+
+Результат: `output\StickyNotes.exe` — портативная версия
+
+### Ручная компиляция
+
+```batch
+# Найдите csc.exe в Windows:
+# %WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe
+
+"%WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe" /target:winexe /out:StickyNotes.exe StickyNotes.cs
+```
 
 ---
 
@@ -99,22 +113,11 @@ build_installer.bat
 
 ## 📋 Системные требования
 
-- **ОС:** Windows 7 SP1 / 8 / 10 / 11
-- **Framework:** .NET Framework 3.5+ (встроен в Windows 10/11)
-- **Python:** НЕ требуется! ✓
-
----
-
-## 🛠️ Компиляция вручную
-
-Если хотите скомпилировать без скрипта:
-
-```batch
-:: Найдите csc.exe (обычно в):
-:: %WINDIR%\Microsoft.NET\Framework64\v4.0.30319\csc.exe
-
-csc /target:winexe /out:StickyNotes.exe StickyNotes.cs
-```
+| Требование | Версия |
+|------------|--------|
+| **ОС** | Windows 7 SP1 / 8 / 10 / 11 |
+| **.NET Framework** | 3.5+ (встроен в Windows 10/11) |
+| **Python** | ❌ НЕ требуется! |
 
 ---
 
@@ -122,12 +125,29 @@ csc /target:winexe /out:StickyNotes.exe StickyNotes.cs
 
 ```
 sticky-notes-cs/
-├── StickyNotes.cs       # Исходный код (один файл!)
-├── compile.bat          # Компиляция EXE
-├── build_installer.bat  # Сборка инсталлера
-├── installer.iss        # Скрипт Inno Setup
-└── README.md            # Эта документация
+├── StickyNotes.cs        # Исходный код (один файл!)
+├── compile.bat           # Компиляция EXE
+├── build_installer.bat   # Полная сборка с инсталлером
+├── installer.iss         # Скрипт Inno Setup
+└── README.md             # Эта документация
 ```
+
+---
+
+## ❓ Частые вопросы
+
+**Q: Зачем компилировать? Почему нет готового EXE?**
+
+A: Исходный код прозрачен — вы видите, что выполняете. Компиляция занимает 2 секунды и не требует установки дополнительных программ.
+
+**Q: Inno Setup не найден**
+
+A: Скачайте с https://jrsoftware.org/isdl.php или используйте только `compile.bat` для получения EXE.
+
+**Q: Компилятор не найден**
+
+A: Убедитесь, что установлен .NET Framework 3.5+:
+- Windows 10/11: Панель управления → Программы → Включение компонентов Windows → .NET Framework 3.5
 
 ---
 
